@@ -6,6 +6,9 @@ import time
 import keyboard
 from datetime import datetime
 import wikipedia as wk
+from bs4 import BeautifulSoup
+import requests
+import re
 
 oldmessage=''
 name=input('Enter the name of user :')
@@ -120,7 +123,7 @@ def bot():
                         bsend("just replying you as fast as i can")
                         
                     if "about me" in msg:
-                        bsend("..")
+                        bsend("Your phone does not have enough memory to hold my words which i will say about you. You are such a skillful person ")
 
                     if "who are you" in msg:
                         bsend("Lets be honest..I am whats app bot of smit")
@@ -133,6 +136,41 @@ def bot():
                     if "bye" in msg:
                         bsend("bye")
                         exit()
+
+                    if "news" in msg:
+                        bsend("Just hold on i am gathering right information...")
+                        url="https://timesofindia.indiatimes.com/home/headlines"
+                        page=requests.get(url)
+                        soup=BeautifulSoup(page.text,'html.parser')
+                        headline=soup.findAll(class_='w_tle')
+                        bsend("here are your news")
+                        count=0
+                        for n in headline[:3]:
+                            count+=1
+                            send(n.text)
+
+                    if "tell me about" in msg:
+                        msg=msg.replace("tell me about","")
+                        bsend("your information about %s is on the way"%msg)
+                        summary =wk.summary(msg,sentences=2)
+                        bsend(summary)
+
+                    if "where is smit" in msg:
+                        bsend("smit is not available right now till i can help you by serving news,facts,wikipedia you just have to give me command")
+                        bsend("news")
+                        bsend("facts")
+                        bsend("tell me about (topic) you want to know")
+
+                    if "fact" in msg:
+                        bsend("getting interesting fact for interesting person")
+                        url="https://bestlifeonline.com/world-facts/"
+                        page=requests.get(url)
+                        soup=BeautifulSoup(page.text,'html.parser')
+                        facts=soup.findAll(class_='title')
+                        for f in facts[:10]:
+                            bsend(f.text)
+                    if "Thank you" in msg:
+                        bsend("Happy to help")
             oldmsg=msg
             sleep(3)
         except Exception as e:
@@ -149,8 +187,7 @@ if argument==2:
         attachimage()
     if take=='B' or take=='b':
         attachdocument()
-    else:
-        print("Invlid input")
+    
 if argument==3:
     bot()
     
