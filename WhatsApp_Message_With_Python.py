@@ -1,7 +1,5 @@
 from selenium import webdriver
 from time import sleep
-from tkinter import messagebox as mb
-import time
 import keyboard
 from datetime import datetime
 import wikipedia as wk
