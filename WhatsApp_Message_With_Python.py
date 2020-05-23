@@ -1,5 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from time import sleep
 from tkinter import messagebox as mb
 import time
@@ -8,7 +7,12 @@ from datetime import datetime
 import wikipedia as wk
 from bs4 import BeautifulSoup
 import requests
-import re
+
+print("Enter your choice")
+print("1:Message")
+print("2:Send attachment")
+print("3:Bot action")
+argument=int(input())
 
 oldmessage=''
 name=input('Enter the name of user :')
@@ -19,11 +23,7 @@ driver.get('https://web.whatsapp.com/')
 input('Press Enter after scanning QR code/Loading page')
 user=driver.find_element_by_xpath('//span[@title = "{}"]'.format(name))
 user.click()
-print("Enter your choice")
-print("1:Message")
-print("2:Send attachment")
-print("3:Bot action")
-argument=int(input())
+
 
 def messagesend():
     oldmsg=""
