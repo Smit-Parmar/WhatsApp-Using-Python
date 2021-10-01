@@ -7,11 +7,10 @@ from bs4 import BeautifulSoup
 import requests
 
 print("Enter your choice")
-print("1:Message")
-print("2:Send attachment")
-print("3:Bot action")
+print("1. Message")
+print("2. Send attachment")
+print("3. Bot action")
 argument=int(input())
-
 oldmessage=''
 name=input('Enter the name of user :')
 option = webdriver.ChromeOptions()
